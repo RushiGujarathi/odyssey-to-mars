@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import CrewSelection from './CrewSelection'
 import MissionDashboard from './MissionDashboard'
 import ColonyBuilder from './ColonyBuilder'
-import AsteroidGame from './AsteroidGame'
 import SignalDelay from './SignalDelay'
 import MarsIdentityCard from './MarsIdentityCard'
 import MarsEnvironmentSim from './MarsEnvironmentSim'
@@ -133,28 +132,6 @@ export default function Conclusion() {
         <Section tag="SIMULATION" tagColor="#4ade80" title="BUILD YOUR COLONY" subtitle="Pick habitat, rover, and energy source. See your colony rendered on the Martian surface.">
           <ColonyBuilder />
         </Section>
-
-        {/* MINI GAME */}
-        <Section tag="MINI GAME" tagColor="#ff4444" title="LAND ON MARS" subtitle="Dodge asteroids · manage fuel · land softly on the blue pad. Arrow keys / WASD.">
-          <AsteroidGame />
-        </Section>
-
-        {/* Quote */}
-        <div className="conclude-reveal mb-20">
-          <div className="relative rounded-2xl overflow-hidden border border-white/5 p-10 md:p-16 text-center"
-            style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.07), rgba(0,212,255,0.04), rgba(232,105,42,0.07))' }}>
-            <div className="absolute top-6 left-8 font-display text-6xl text-purple-400/12 leading-none select-none">"</div>
-            <div className="absolute bottom-4 right-8 font-display text-6xl text-orange-400/12 leading-none select-none">"</div>
-            <p className="font-display text-xl md:text-3xl text-white/80 leading-relaxed mb-6 relative z-10">
-              Making humanity multiplanetary is the most important thing we could possibly do.
-            </p>
-            <div className="flex items-center justify-center gap-3">
-              <div className="h-px w-12 bg-white/20" />
-              <p className="font-mono text-xs text-white/35 tracking-widest">ELON MUSK — SpaceX CEO</p>
-              <div className="h-px w-12 bg-white/20" />
-            </div>
-          </div>
-        </div>
 
         {/* Final — Earth to Mars */}
         <div className="conclude-reveal">

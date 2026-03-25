@@ -28,7 +28,6 @@ export default function MarsMap() {
   const [hovered, setHovered] = useState(null)
   const popupRef = useRef(null)
   const { sounds } = useSounds() || { sounds: {} }
-  // Satellite angle
   const [satAngle, setSatAngle] = useState(0)
   useEffect(() => {
     const iv = setInterval(() => setSatAngle(a => (a + 0.4) % 360), 30)
@@ -46,30 +45,16 @@ export default function MarsMap() {
 
   const select = (loc) => { sounds?.click?.(); setActive(active?.id===loc.id ? null : loc) }
 
-  // Satellite position
   const satRad  = (satAngle * Math.PI) / 180
   const satCX   = 50, satCY = 48, satRX = 46, satRY = 14
   const satX    = satCX + satRX * Math.cos(satRad)
   const satY    = satCY + satRY * Math.sin(satRad)
-  const satFront= Math.sin(satRad) > 0 // in front of mars
+  const satFront= Math.sin(satRad) > 0
 
   return (
     <div className="relative w-full">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <p className="font-display text-sm font-bold text-white tracking-widest">🗺️ MARS SURFACE MAP</p>
-          <p className="font-mono text-xs text-white/25 mt-0.5">{LOCATIONS.length} sites · click any to explore</p>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span className="font-mono text-xs text-green-400/70">SATELLITE LIVE</span>
-        </div>
-      </div>
-
       {/* Map */}
       <div className="relative rounded-xl overflow-hidden border border-white/8" style={{ paddingBottom:'50%', background:'#3d0e00' }}>
-        {/* Mars surface */}
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 50" preserveAspectRatio="none">
           <defs>
             <radialGradient id="mg" cx="42%" cy="42%" r="65%">
@@ -80,21 +65,15 @@ export default function MarsMap() {
             </radialGradient>
           </defs>
           <rect width="100" height="50" fill="url(#mg)"/>
-          {/* Olympus Mons */}
           <ellipse cx="22" cy="35" rx="7" ry="5" fill="rgba(255,140,60,0.22)"/>
           <ellipse cx="22" cy="35" rx="3" ry="2.2" fill="rgba(255,170,80,0.28)"/>
-          {/* Valles Marineris */}
           <path d="M28 51 Q50 49.5 72 53" stroke="rgba(40,8,0,0.85)" strokeWidth="2.2" fill="none"/>
-          {/* North polar cap */}
           <ellipse cx="50" cy="7.5" rx="13" ry="5.5" fill="rgba(210,230,255,0.28)"/>
           <ellipse cx="50" cy="7.5" rx="8" ry="3.2" fill="rgba(235,245,255,0.22)"/>
-          {/* Hellas basin */}
           <ellipse cx="69" cy="62" rx="10" ry="7" fill="rgba(20,4,0,0.6)"/>
-          {/* Craters */}
           {[[14,14,1.8],[82,22,1.4],[36,61,2.2],[86,52,1.6],[9,54,1.4],[76,9,1.1]].map(([cx,cy,r],i)=>(
             <circle key={i} cx={cx} cy={cy} r={r} fill="none" stroke="rgba(60,15,0,0.35)" strokeWidth="0.5"/>
           ))}
-          {/* Atmosphere */}
           <rect width="100" height="50" fill="url(#atm)" opacity="0.18"/>
           <defs>
             <linearGradient id="atm" x1="0" y1="0" x2="0" y2="1">
@@ -103,11 +82,9 @@ export default function MarsMap() {
             </linearGradient>
           </defs>
 
-          {/* Satellite orbit ellipse (behind) */}
           <ellipse cx={satCX} cy={satCY} rx={satRX} ry={satRY}
             fill="none" stroke="rgba(0,212,255,0.15)" strokeWidth="0.4" strokeDasharray="2 3"/>
 
-          {/* Satellite — only draw when behind mars (satFront=false) */}
           {!satFront && (
             <g transform={`translate(${satX},${satY})`}>
               <rect x="-2" y="-1" width="4" height="2" rx="0.5" fill="#8b9bb4"/>
@@ -118,7 +95,6 @@ export default function MarsMap() {
           )}
         </svg>
 
-        {/* Location pins */}
         {LOCATIONS.map(loc => {
           const isA = active?.id===loc.id, isH = hovered===loc.id
           return (
@@ -147,7 +123,6 @@ export default function MarsMap() {
           )
         })}
 
-        {/* Satellite — draw in front when satFront=true */}
         {satFront && (
           <div className="absolute pointer-events-none" style={{ left:`${satX}%`, top:`${satY}%`, transform:'translate(-50%,-50%)', zIndex:15 }}>
             <svg width="22" height="14" viewBox="0 0 22 14" fill="none">

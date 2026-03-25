@@ -167,7 +167,7 @@ export default function Exploration() {
           <SolSlider />
         </div>
 
-        {/* Interactive Mars Map */}
+        {/* Mars Map — only once */}
         <div className="explore-reveal bg-[#0d1b2a]/60 border border-white/5 rounded-xl p-6">
           <MarsMap />
         </div>

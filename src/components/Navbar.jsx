@@ -4,7 +4,6 @@ const navItems = [
   { label: 'Hero', href: '#hero' },
   { label: 'Launch', href: '#launch' },
   { label: 'Journey', href: '#space' },
-  { label: 'Landing', href: '#landing' },
   { label: 'Explore', href: '#explore' },
   { label: 'Future', href: '#conclusion' },
 ]

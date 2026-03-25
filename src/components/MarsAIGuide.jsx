@@ -75,12 +75,12 @@ export default function MarsAIGuide() {
 
   return (
     <>
-      {/* Floating button — moved left of achievement badges, higher z-index */}
+      {/* Floating button — sits above the toast zone */}
       <button
         onClick={() => { setOpen(o => !o); sounds?.click?.() }}
         className="fixed z-[9999] flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110"
         style={{
-          bottom: '1.5rem', right: '5rem',
+          bottom: '7.5rem', right: '1.5rem',
           width: 52, height: 52, borderRadius: '50%',
           background: 'linear-gradient(135deg, #0d1b2a, #1a2744)',
           border: '1.5px solid rgba(0,212,255,0.5)',
@@ -92,13 +92,13 @@ export default function MarsAIGuide() {
         {!open && <span className="absolute inset-0 rounded-full border border-cyan-400/30 animate-ping" />}
       </button>
 
-      {/* Chat panel */}
+      {/* Chat panel — opens upward from the button */}
       {open && (
         <div
           ref={panelRef}
           className="fixed z-[9998]"
           style={{
-            bottom: '5rem', right: '5rem',
+            bottom: '9.5rem', right: '1.5rem',
             width: 340,
             maxWidth: 'calc(100vw - 24px)',
             borderRadius: 16,
