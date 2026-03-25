@@ -13,8 +13,8 @@ import AchievementSystem from './components/AchievementSystem'
 import MarsAIGuide from './components/MarsAIGuide'
 import ScrollColorShift from './components/ScrollColorShift'
 import LowGravityLayer from './components/LowGravityLayer'
-import MissionProgressBar from './components/Missionprogressbar'
-import MissionPathSelector from './components/Missionpathselector'
+import MissionProgressBar from './components/MissionProgressBar'
+import MissionPathSelector from './components/MissionPathSelector'
 import AdaptiveSound from './components/AdaptiveSound'
 import { SoundProvider } from './components/SoundEngine'
 
@@ -60,7 +60,7 @@ export default function App() {
         {/* Floating overlays */}
         <AchievementSystem />
         <MarsAIGuide />
-      
+    
 
         <main>
           <Hero missionPath={missionPath} />
