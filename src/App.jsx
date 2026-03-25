@@ -15,7 +15,7 @@ import ScrollColorShift from './components/ScrollColorShift'
 import LowGravityLayer from './components/LowGravityLayer'
 import MissionProgressBar from './components/Missionprogressbar'
 import MissionPathSelector from './components/Missionpathselector'
-import EasterEggs from './components/EasterEggs'
+import EasterEggs from './components/Eastereggs'
 import AdaptiveSound from './components/AdaptiveSound'
 import { SoundProvider } from './components/SoundEngine'
 
