@@ -28,11 +28,6 @@ export default function MarsMap() {
   const [hovered, setHovered] = useState(null)
   const popupRef = useRef(null)
   const { sounds } = useSounds() || { sounds: {} }
-  const [satAngle, setSatAngle] = useState(0)
-  useEffect(() => {
-    const iv = setInterval(() => setSatAngle(a => (a + 0.4) % 360), 30)
-    return () => clearInterval(iv)
-  }, [])
 
   useEffect(() => {
     if (active && popupRef.current) {
@@ -44,12 +39,6 @@ export default function MarsMap() {
   }, [active?.id])
 
   const select = (loc) => { sounds?.click?.(); setActive(active?.id===loc.id ? null : loc) }
-
-  const satRad  = (satAngle * Math.PI) / 180
-  const satCX   = 50, satCY = 48, satRX = 46, satRY = 14
-  const satX    = satCX + satRX * Math.cos(satRad)
-  const satY    = satCY + satRY * Math.sin(satRad)
-  const satFront= Math.sin(satRad) > 0
 
   return (
     <div className="relative w-full">
@@ -63,6 +52,10 @@ export default function MarsMap() {
               <stop offset="70%" stopColor="#631e04"/>
               <stop offset="100%" stopColor="#3a0e00"/>
             </radialGradient>
+            <linearGradient id="atm" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ff9060" stopOpacity="0.6"/>
+              <stop offset="40%" stopColor="#ff6030" stopOpacity="0"/>
+            </linearGradient>
           </defs>
           <rect width="100" height="50" fill="url(#mg)"/>
           <ellipse cx="22" cy="35" rx="7" ry="5" fill="rgba(255,140,60,0.22)"/>
@@ -75,24 +68,6 @@ export default function MarsMap() {
             <circle key={i} cx={cx} cy={cy} r={r} fill="none" stroke="rgba(60,15,0,0.35)" strokeWidth="0.5"/>
           ))}
           <rect width="100" height="50" fill="url(#atm)" opacity="0.18"/>
-          <defs>
-            <linearGradient id="atm" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ff9060" stopOpacity="0.6"/>
-              <stop offset="40%" stopColor="#ff6030" stopOpacity="0"/>
-            </linearGradient>
-          </defs>
-
-          <ellipse cx={satCX} cy={satCY} rx={satRX} ry={satRY}
-            fill="none" stroke="rgba(0,212,255,0.15)" strokeWidth="0.4" strokeDasharray="2 3"/>
-
-          {!satFront && (
-            <g transform={`translate(${satX},${satY})`}>
-              <rect x="-2" y="-1" width="4" height="2" rx="0.5" fill="#8b9bb4"/>
-              <rect x="-5" y="-0.8" width="2.8" height="1.6" rx="0.3" fill="#1a3a5c" stroke="rgba(0,212,255,0.8)" strokeWidth="0.3"/>
-              <rect x="2.2" y="-0.8" width="2.8" height="1.6" rx="0.3" fill="#1a3a5c" stroke="rgba(0,212,255,0.8)" strokeWidth="0.3"/>
-              <circle cx="0" cy="0" r="0.8" fill="rgba(0,212,255,0.9)"/>
-            </g>
-          )}
         </svg>
 
         {LOCATIONS.map(loc => {
@@ -122,18 +97,6 @@ export default function MarsMap() {
             </button>
           )
         })}
-
-        {satFront && (
-          <div className="absolute pointer-events-none" style={{ left:`${satX}%`, top:`${satY}%`, transform:'translate(-50%,-50%)', zIndex:15 }}>
-            <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
-              <rect x="7" y="5" width="8" height="4" rx="1" fill="#8b9bb4"/>
-              <rect x="0" y="4" width="6" height="6" rx="1" fill="#1a3a5c" stroke="rgba(0,212,255,0.8)" strokeWidth="0.8"/>
-              <rect x="16" y="4" width="6" height="6" rx="1" fill="#1a3a5c" stroke="rgba(0,212,255,0.8)" strokeWidth="0.8"/>
-              <circle cx="11" cy="7" r="2" fill="rgba(0,212,255,0.9)"/>
-              <line x1="11" y1="0" x2="11" y2="4" stroke="rgba(255,255,255,0.5)" strokeWidth="0.6"/>
-            </svg>
-          </div>
-        )}
       </div>
 
       {/* Info popup */}
