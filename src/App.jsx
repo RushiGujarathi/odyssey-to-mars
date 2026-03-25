@@ -60,7 +60,7 @@ export default function App() {
         {/* Floating overlays */}
         <AchievementSystem />
         <MarsAIGuide />
-        <EasterEggs />
+      
 
         <main>
           <Hero missionPath={missionPath} />
